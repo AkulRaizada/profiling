@@ -1,0 +1,69 @@
+.box{
+    background-color: rgba(201, 204, 209, 0.295);box-shadow: 0 2px 18px 0 gray;
+  }
+  
+  .dialog-progress-outline-with-footer {
+      height: 80px;
+      width: 92%;
+      margin: auto;
+      padding: 2%;
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 18px 0 rgba(0, 0, 0, 0.04);
+    }
+  
+    .dialog-progress-outline-dropdowns{
+      width: 92%;
+      margin: auto;
+      padding: 2%;
+      background-color: rgba(201, 204, 209, 0.295);
+      box-shadow: 0 2px 18px 0 rgba(0, 0, 0, 0.04);
+    }
+  
+    .dialog-title-text {
+      /** margin-top: -1110px; **/
+      color: #22212E;
+      font-family: "Mark Pro";
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 28px;
+    }
+  
+    
+  .form-group-criteria {
+      width: 100%;
+  }
+  
+  a.criteria-links-feature {
+      text-decoration: none;
+  }
+  
+  a.criteria-links-feature:hovar{
+      color: pink;
+  }
+  
+  a.criteria-links-feature:before {
+      content: " •  ";
+      color:black;
+  }
+  
+  .jstree-table-wrapper {
+    border: 1px solid #ccc;
+  }
+  #Overall_Customers_Summary_anchor{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  div[id='jstable_Overall\ Customers\ Summary_col1']{
+    border: 1px solid #ccc;
+  }
+   .jstree-table-cell-regular{
+       font-weight: bold;
+   }
+  
+   .modal-backdrop {
+      z-index: 1040 !important;
+  }
+  .modal-content {
+      margin: 2px auto;
+      z-index: 1100 !important;
+  }

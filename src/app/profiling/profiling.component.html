@@ -1,0 +1,121 @@
+<div class="dialog-progress-outline-with-footer">
+    <div class="dialog-title-text">
+        <span>TDM Profiling Search Engine</span>
+    </div>
+</div>
+<div class="dialog-progress-outline-dropdowns">
+    <div class="row">
+        <div class="col-md-4" style="padding:1%">
+            <label>Select Environment</label>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <label>Select Repository</label>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <label>Select Criteria</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="Environment" [(ngModel)]="selectedEnvironment" optionValue="code" optionLabel="name"
+                [style]="{width: '90%'}" [filter]="true" filterBy="name" placeholder="Select Environment"
+                [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'" [disabled]="disableEnv"
+                (onChange)="envChange()"></p-dropdown>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="Repository" [(ngModel)]="selectedRepository" optionValue="code" optionLabel="name"
+                [style]="{width: '90%'}" [filter]="true" filterBy="name" placeholder="Select Repository"
+                [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'" [disabled]="disableRepo"
+                (onChange)="repoChange()"></p-dropdown>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="Criteria" [(ngModel)]="selectedCriteria" optionValue="code" optionLabel="name"
+                [style]="{width: '90%'}" [filter]="true" filterBy="name" placeholder="Select Criteria"
+                [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'" [disabled]="disableCriteria"
+                (onChange)="criteriaChange()"></p-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" style="padding:1%">
+            <label>Profiling Criteria </label>
+        </div>
+        <div class="col-md-4" style="padding:1%"></div>
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="LoadFavCriteria" [(ngModel)]="selectedLoadFavCriteria" optionValue="code"
+                optionLabel="name" [style]="{width: '90%'}" [filter]="true" filterBy="name"
+                placeholder="Load Favorite Criteria..." [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'"
+                (onChange)="loadFavCriteriaChange()"></p-dropdown>
+        </div>
+    </div>
+    <div class="row box">
+        <div class="col-md-7 form-group-criteria">
+            <!-- <div class="col-md-3 col-sm-3">
+                <label for="criteria_name">Criteria Name :</label>
+            </div> -->
+            <div class="col-md-4 col-sm-4">
+                <input type="text" class="form-control" id="criteria_name" placeholder="Criteria Name">
+            </div>
+        </div>
+        <div class="col-md-5 form-group-criteria">
+            <span class="criteria-rule-features">
+                <a href="#" class="criteria-links-feature" onClick="addCriteriaToFavorites()">Add to Favorites</a>
+                <a href="#" class="criteria-links-feature" style="text-decoration: none"
+                    onClick="resetProfiling()">Reset</a>
+                <a href="#" class="criteria-links-feature" style="text-decoration: none"
+                    onClick="delete_favorite()">Delete</a>
+                <a href='./profiling/favorites_profiling_v2.php?profileType=source' class="criteria-links-feature"
+                    target='_blank'>Favorites Profiling</a>
+            </span>
+        </div>
+        <div class="col-md-12" id="jstree1">
+            <div id="jstree"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #contentSelect let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Select the New Request type
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="selNreq">
+        <div class="radio">
+          <input id="radio-1" name="radio" type="radio" checked />
+          <label for="radio-1" class="radio-label">Create Copy Request</label>
+        </div>
+        <div class="radio">
+          <input id="radio-2" name="radio" type="radio" />
+          <label for="radio-2" class="radio-label">Create Purge Request</label>
+        </div>
+        <div class="radio">
+          <input id="radio-3" name="radio" type="radio" />
+          <label for="radio-3" class="radio-label">Create Clone Request</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        ngbAutofocus
+        class="btn btn-success"
+        (click)="modal.close('Ok click')"
+      >
+        Ok
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="modal.close('Ok click')"
+      >
+        Cancel
+      </button>
+    </div>
+  </ng-template>

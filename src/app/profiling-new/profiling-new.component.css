@@ -1,0 +1,35 @@
+      :host ::ng-deep .p-button {
+          margin: 0 .5rem 0 0;
+          min-width: 10rem;
+      }
+
+      p {
+          margin: 0;
+      }
+
+      .confirmation-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      :host ::ng-deep .p-dialog .p-button {
+          min-width: 6rem;
+      }
+
+      .form-group-criteria {
+        width: 100%;
+    }
+
+    a.criteria-links-feature {
+        text-decoration: none;
+    }
+    
+    a.criteria-links-feature:hovar{
+        color: pink;
+    }
+    
+    a.criteria-links-feature:before {
+        content: " •  ";
+        color:black;
+    }

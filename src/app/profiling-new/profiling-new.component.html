@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-md-4" style="padding:1%">
+        <label>Profiling Criteria </label>
+    </div>
+    <div class="col-md-4" style="padding:1%"></div>
+    <div class="col-md-4" style="padding:1%">
+        <p-dropdown [options]="LoadFavCriteriaMd" [(ngModel)]="selectedLoadFavCriteriaMd" [style]="{width: '90%'}"
+            placeholder="Load Favourite Criteria" [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'"
+            (onChange)="onLoadFavCriteriaChange($event)" [showClear]="true">
+        </p-dropdown>
+    </div>
+</div>
+<div class="col-md-5 form-group-criteria">
+    <span class="criteria-rule-features">
+        <a href="#" class="criteria-links-feature" (click)="displayConfirm()">Add to Favorites</a>
+        <a href="#" class="criteria-links-feature" style="text-decoration: none" (click)="ResetTreeTable()">Reset</a>
+        <a href="#" class="criteria-links-feature" style="text-decoration: none" (click)="delete_favorite()">Delete</a>
+        <a href='./profiling/favorites_profiling_v2.php?profileType=source' class="criteria-links-feature"
+            target='_blank'>Favorites Profiling</a>
+    </span>
+</div>
+
+<p-treeTable [value]="files" [columns]="cols" dataKey="name" (onContextMenuSelect)="contextMenu($event.node, cm)"
+    [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttContextMenuRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'p-toggler-column': i === 0}">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <!-- <p-treeTableCellEditor *ngIf="col.field != 'criteria'">
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                    </ng-template>
+                    <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                </p-treeTableCellEditor>
+                <span *ngIf="col.field == 'criteria'">{{rowData[col.field]}}</span> -->
+                <i class="pi pi-folder" *ngIf="col.field == 'criteria'"></i> {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
+
+<p-contextMenu #cm [model]="items" [hidden]="hiddenContextMenu"></p-contextMenu>
+
+<p-dialog header="Select Profiling Criteria" [(visible)]="displayMaximizable" [modal]="true"
+    [style]="{height: '90%',width: '70%'}" [maximizable]="true" [baseZIndex]="10000" [draggable]="true"
+    [resizable]="true">
+    <hr>
+    <div>
+        <div class="row">
+            <div class="col-md-4" style="padding:1%">
+                <label>Criteria Name</label>
+            </div>
+            <div class="col-md-4" style="padding:1%">
+                <label>Operator</label>
+            </div>
+            <div class="col-md-4" style="padding:1%">
+                <label>Value</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="padding:1%">
+                <p-dropdown [options]="CriteriaMd" [(ngModel)]="selectedCriteriaMd" [style]="{width: '90%'}"
+                    placeholder="Select Criteria Name" [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'"
+                    (onChange)="onCriteriaChange($event)">
+                </p-dropdown>
+            </div>
+            <div class="col-md-4" style="padding:1%">
+                <p-dropdown [options]="Operator" [(ngModel)]="selectedOperator" [style]="{width: '90%'}"
+                    placeholder="Select Operator" [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'"
+                    [disabled]="disableOperator">
+                </p-dropdown>
+            </div>
+            <div class="col-md-4" style="padding:1%">
+                <p-multiSelect [options]="Value" [(ngModel)]="selectedValue" [style]="{width: '90%'}"
+                    placeholder="Select Value" [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'"
+                    [disabled]="disableValue">
+                </p-multiSelect>
+            </div>
+        </div>
+        <div class="row" [style]="{display: displaySpinner}">
+            <i class="pi pi-spin pi-spinner" style="font-size: 7rem;margin-left: 45%;"></i>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <hr>
+        <p-button icon="pi pi-check" (click)="onAddCriteriaClick()" label="Add Criteria" class="p-button-text">
+        </p-button>
+        <p-button icon="pi pi-times" (click)="displayMaximizable=false" label="Close"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Warning !" [(visible)]="displayBasic" [style]="{width: '3 0vw'}" [baseZIndex]="10000">
+    <hr>
+    <p>Please delete failed rules before adding a new ones</p>
+    <ng-template pTemplate="footer">
+        <hr>
+        <p-button icon="pi pi-check" (click)="displayBasic=false" label="OK" class="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+<p-dialog header="Warning !" [(visible)]="displayResetAlert" [style]="{width: '3 0vw'}" [baseZIndex]="10000">
+    <hr>
+    <p>Are you sure you want to reset? </p>
+    <ng-template pTemplate="footer">
+        <hr>
+        <p-button icon="pi pi-check" (click)="ResetTreeTable()" label="OK" class="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="displayResetAlert=false" label="Close"></p-button>
+    </ng-template>
+</p-dialog>
+<p-dialog header="Warning !" [(visible)]="confirmBox" [style]="{width: '3 0vw'}" [baseZIndex]="10000">
+    <hr>
+    <p>Favorite already exits. Do you want to overwrite?</p>
+    <ng-template pTemplate="footer">
+        <hr>
+        <p-button icon="pi pi-check" (click)="addCriteriaToFavorites()" label="OK" class="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="confirmBox=false" label="Cancel"></p-button>
+    </ng-template>
+</p-dialog>
+<p-dialog header="Warning !" [(visible)]="confirmBoxDelete" [style]="{width: '3 0vw'}" [baseZIndex]="10000">
+    <hr>
+    <p>Are you sure you want to delete the criterion {{selectedLoadFavCriteriaMd}}?</p>
+    <ng-template pTemplate="footer">
+        <hr>
+        <p-button icon="pi pi-check" (click)="deleteFavCriteria()" label="OK" class="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="confirmBoxDelete=false" label="Cancel"></p-button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+        Select Profiling Criteria
+    </h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4" style="padding:1%">
+            <label>Criteria Name</label>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <label>Operator</label>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <label>Value</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="CriteriaMd" [(ngModel)]="selectedCriteriaMd" optionValue="code"
+                optionLabel="name" [style]="{width: '90%'}" [filter]="true" filterBy="name"
+                placeholder="Select Criteria Name" [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'">
+            </p-dropdown>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="Operator" [(ngModel)]="selectedOperator" optionValue="code" optionLabel="name"
+                [style]="{width: '90%'}" [filter]="true" filterBy="name" placeholder="Select Operator"
+                [showTransitionOptions]="'5ms'"></p-dropdown>
+        </div>
+        <div class="col-md-4" style="padding:1%">
+            <p-dropdown [options]="Value" [(ngModel)]="selectedValue" optionValue="code" optionLabel="name"
+                [style]="{width: '90%'}" [filter]="true" filterBy="name" placeholder="Select Value"
+                [showTransitionOptions]="'5ms'" [hideTransitionOptions]="'2ms'"></p-dropdown>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" ngbAutofocus class="btn btn-primary" (click)="addCriteria()">
+        Add Criteria
+    </button>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        Close
+    </button>
+</div>
